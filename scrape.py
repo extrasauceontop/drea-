@@ -51,6 +51,8 @@ def get_data():
     )
     x = 0
     for code in all_codes:
+        if x == 200:
+            break
         try:
             formdata = {
                 "option": "com_ajax",
@@ -157,7 +159,8 @@ def get_data():
                 "hours": hours,
                 "country_code": country_code,
             }
-        except Exception:
+        except Exception as e:
+            print(e)
             pass
 
 
