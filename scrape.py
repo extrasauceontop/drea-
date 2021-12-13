@@ -50,6 +50,8 @@ def get_data():
         country_codes=[SearchableCountries.BRITAIN],
     )
     x = 0
+
+    visited_urls = []
     for code in all_codes:
         if x == 200:
             break
@@ -77,6 +79,12 @@ def get_data():
             page_url = response[0]["url"]
             location_name = response[0]["name"]
 
+            if page_url in visited_urls:
+                continue
+
+            else:
+                visited_urls.append(page_url)
+                
             with get_driver(page_url, "gm-style") as driver:
                 while True:
                     try:
