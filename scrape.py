@@ -77,23 +77,20 @@ def get_data():
             page_url = response[0]["url"]
             location_name = response[0]["name"]
 
-            driver = get_driver(page_url, "gm-style")
+            with get_driver(page_url, "gm-style") as driver:
+                while True:
+                    try:
+                        page_response = driver.page_source
+                        soup = bs(page_response, "html.parser")
 
-            while True:
-                try:
-                    page_response = driver.page_source
-                    soup = bs(page_response, "html.parser")
+                        latitude = page_response.split("?ll=")[1].split(",")[0]
+                        longitude = (
+                            page_response.split("?ll=")[1].split(",")[1].split("&")[0]
+                        )
+                        break
+                    except Exception:
+                        continue
 
-                    latitude = page_response.split("?ll=")[1].split(",")[0]
-                    longitude = (
-                        page_response.split("?ll=")[1].split(",")[1].split("&")[0]
-                    )
-
-                    break
-                except Exception:
-                    continue
-
-            driver.quit()
             address_parts = (
                 soup.find("div", attrs={"class": "address"})
                 .get_text(strip=True, separator="\n")
