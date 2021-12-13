@@ -31,8 +31,10 @@ def get_driver(url, class_name, driver=None):
                 EC.presence_of_element_located((By.CLASS_NAME, class_name))
             )
             break
-        except Exception:
+        except Exception as e:
+            print("the exception is " + e)
             driver.quit()
+            
             if x == 10:
                 raise Exception(
                     "Make sure this ran with a Proxy, will fail without one"
