@@ -32,7 +32,8 @@ def get_driver(url, class_name, driver=None):
             )
             break
         except Exception as e:
-            print("the exception is " + e)
+            print("the exception is!")
+            print(e)
             driver.quit()
             
             if x == 10:
