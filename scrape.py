@@ -78,13 +78,13 @@ def get_data():
             locator_domain = "dreamdoors.co.uk"
             page_url = response[0]["url"]
             location_name = response[0]["name"]
-
+            print(page_url)
             if page_url in visited_urls:
                 continue
 
             else:
                 visited_urls.append(page_url)
-                
+            print("moving on: " + page_url)
             with get_driver(page_url, "gm-style") as driver:
                 while True:
                     try:
